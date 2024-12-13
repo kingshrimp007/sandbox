@@ -1,0 +1,156 @@
+// ---------------------------------------------------------------------------
+// from Principles and Practices of Interconnection Networks 2004
+//  by William James Dally & Brian Towles
+// my notes from the example butterfly network discussed in Chapter 2
+// accompanying design files are based on the excerpted notes below
+// ---------------------------------------------------------------------------
+
+// ---------------------------------------------------------------------------
+// butterfly network
+// =====================================================
+// spec table
+//  input ports                  64
+//  output ports                 64
+//  peak bandwidth               .25    GBps
+//  average bandwidth            .25    GBps
+//  message latency              100    ns
+//  message size                 4-64   bytes
+//  traffic pattern              random
+//  quality of service           dropping acceptable
+//  reliability                  dropping acceptable
+// 
+// =====================================================
+// constraint table
+//  port width                  2       bits
+//  signaling rate              1       GHz
+//  signals per chip            150
+//  chip cost                   200     $
+//  chip pin bandwidth          1       Gbps
+//  signals per PCB             750
+//  PCB cost                    200     $
+//  signals per cable           80
+//  cable cost                  50      $
+//  cable length                4m @ 1Gbps [1]
+// ---------------------------------------------------------------------------
+
+// notes
+//      avg and peak bandwidth are equal indicates that input injects messages continously at .25 GBps
+//      random traffic indicates equal probability of any input mapping to any output
+//      [1] bandwidth * d^2 is a constant for a given type of cable, 
+//          so if cable length needs to be doubled, bandwidth must be reduced by factor of 4 to maintain cable characteristics, e.g. 250Mbps
+
+// =====================================================
+// topology design
+// =====================================================
+// below is based on (figure 2.1 pg 27)
+//  symmetrical number of input to output ports, p
+//  consists of log2(p) layers of switches, e.g. 3 layers, with each layer having nodes, n = p / num ports switched by each node,
+//      e.g. n = 8 / 2 ports switched by each node => n = 4
+//           layers = log2(p = 8) => layers = 3
+// =====================================================
+//
+//  network design parameters: speedup and radix
+//
+//  *** speedup ***
+// ratio of total input bandwidth of the network to the network's ideal capacity
+//  capacity is defined as the best possible ideal throughput assuming perfect routing and flow control under the given traffic pattern
+//  speedup of 1 means demands of inputs are matched to the ideal ability of the network
+//  providing for more speedup increases the design's margin and allows for non-idealities, e.g. like a structure's safety factor
+// 
+// choice of speedup and packaging constraints determines nmber of inputs and outputs of each switching node, e.g. radix
+// 
+// *** radix ***
+// number of inputs and outputs of each switching node
+//  
+// note: figure 2.1 has radix of 2
+// 
+// so for butterfly network with specs denoted above
+//  signals per chip => 150 -> channels * channel width <= 150 
+//  let speedup = 8
+//  channel bandwidth = 8 * .25GBps => 2GBps
+//  2GBps = 16Gbps -> 16Gbps / 1Gbps/pin => 16 pins
+//  alot 2 overhead signals -> channels are 18 pins wide
+//  150 signals per chip -> floor(150/8) = 8  => max 8 channels per chip -> 4 input and 4 output channels each
+// 
+// hence radix = 4
+// 
+// to connect all input ports to all  64 output ports, we need log4(p = 64) => 3 layers
+//  note: earlier example in figure 2.1 used log2 -> log base is equivalent ot radix
+// 
+// thus network is radix-4, 3-stage butterfly, aka a 4-ary 3-fly network
+// 
+// for packaging, each switch node will be wholly encapuslated by a single chip
+//  maximium pinout per PCB is 750 however
+//  this contrainst is driven by connector density (signals/m) * length of connector (m)
+// 
+// general note on butterfly network design: switching nodes in topology can connect any input to any output
+//  first stage of switches selects between every other 4th switching node in the second stage
+//  second stage selects between nodes 0-3, 4-7, 8-11 of the third stage
+//  third stage selects the output port in groups of 4 of ports 0-63
+//      refer to this method as divide-and-conquer structure
+// 
+// =====================================================
+// routing
+// =====================================================
+// butterfly network in example above uses destination-tag routing in which bits of the destination address
+//  are used to select the output port at each stage of the network
+// in a 64-node network, destination address is log2(64) = 6 bits
+//  each stage of switches uses 2 address bits to select 1 of the 4 switch outputs
+// routing is source address independent, each dibit (i.e. bits 0-1, 2-3, 4-5)
+//  of the 6 bit destination address vector are used to select 1 of 4 banks of the next stage of switches and so on
+// for uniformity, each stage of the router uses the top two bits of the destination address then shifts the address 2 bits to the left
+// 
+// =====================================================
+// flow control
+// =====================================================
+// recall channel width is 18 bits (16 bits data + 2 bits overhead) so 16 bit-wide physical digits (phit) transferred per cycle
+// data is packetized in the following format:
+//      Type|Data
+//   [17:16]|[15:0]
+// 3 types of packets exist: [H] header, [P] payload, [N] null
+// valid packet must consist of header and payload occurring consecutively without interruption
+// 
+// packet formats by type
+//  [H] => [type = H]|[data[15:10] = dest][unused]
+//  [P] => [type = P]|[data]
+//  [N] => [unused]
+// packet termination is inferred either by occurence of header or null phits
+// 
+// phit encoding
+// type | code
+//  H   | 11
+//  P   | 10
+//  N   | 00
+// 
+// in this example, the network uses dropping flow control
+//  e.g. if the input port sends a packet to a switch that is already in use, packet will drop
+// 
+// =====================================================
+// router design
+// =====================================================
+// each of the switching nodes in the butterfly newtork is a router
+//  datapath of the router consists of 4 input registers, 4 4:1 muxes, 4 shifters, and 4 output registers
+//  routing is determined by the allocator; each mux has a corresponding allocator
+//  shifters shift the header phit estination address field by 2 so next stage can route appropriately
+//  allocator logic is organized serially into phases as follows: decode, arbitrate, and hold
+//      allocator outputs are mux control and shift control
+//      allocator inputs are input ports and route mapping bits
+//      decoder logic recieves upper 4 bits of phit: 
+//          it examines whether the phit is a header or payload and produces a request or payload signal
+//          request signal is gated by a match signal, e.g. if header destination address matches this route
+//      hold logic uses the grant signal produced by the arbiter or payload signal produced by the decoder
+//       to hold route for requesting port until payload is completely flushed through
+//      allocator logic implements a 4-input fixed priority arbiter
+//       priority descends in order from requester 0 to requester 3
+//       arbiter receives 4 request signals from each respective requester and generates only 1 of 4 grant signals based on priority
+//        each grant signal follows its respective request signal but is gated by an avail signal which itself is generated by NOR'ing all 4 hold signals
+//       shift signal is produced by OR'ing all grant signals which is only asserted when the current phit is a header
+// 
+// =====================================================
+// performance analysis
+// =====================================================
+// performance of a network is judged by cost, latency, and throughput
+//  latency is the time it takes for packet to traverse network
+//  throughput is the num bits per second the network can tranpsort from input to output
+//      for this example butterfly network with dropping flow control, performance is heavily influenced by probablity that a packet will be dropped
+// 

@@ -69,7 +69,8 @@
 //  let speedup = 8
 //  channel bandwidth = 8 * .25GBps => 2GBps
 //  2GBps = 16Gbps -> 16Gbps / 1Gbps/pin => 16 pins
-//  alot 2 overhead signals -> channels are 18 pins wide
+//  alot 2 overhead signals 
+//   -> channel width = 18 pins
 //  150 signals per chip -> floor(150/8) = 8  => max 8 channels per chip -> 4 input and 4 output channels each
 // 
 // hence radix = 4

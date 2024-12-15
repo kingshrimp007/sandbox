@@ -38,14 +38,15 @@ for(genvar i = 0; i < PORTS; i++) begin
         .clk            ( clk           ),
         .r_adr          ( r_adr         ),                         
         .in_ch_hdr_msn  ( in_ch_hdr_msn ),     
-        .sel            ( sel[i]        )
+        .sel            ( sel[i]        ),
+        .shift          ( shift[i]      )
     );
 end
 
 // mux logic
 for(genvar i = 0; i < PORTS; i++) begin
     always_comb begin : mux_dout_n
-        case(sel)
+        case(sel[i])
             4'b0001 : mux_dout[i] = in_ch_flops[0];
             4'b0010 : mux_dout[i] = in_ch_flops[1];
             4'b0100 : mux_dout[i] = in_ch_flops[2];
@@ -72,6 +73,8 @@ always_ff @ (posedge clk) begin
     in_ch_flops <= in_ch;
     out_ch_flops <= shift_dout;
 end
+
+assign out_ch = out_ch_flops;
 
 
 endmodule

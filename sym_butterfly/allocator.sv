@@ -8,7 +8,8 @@ module allocator #(
     input   logic                                       clk,
     input   logic       [$clog2(PORTS) - 1 : 0]         r_adr,
     input   logic               [PORTS - 1 : 0][3 : 0]  in_ch_hdr_msn,
-    output  logic               [PORTS - 1 : 0]         sel
+    output  logic               [PORTS - 1 : 0]         sel,
+    output  logic                                       shift
 );
 
 // logic declarations
@@ -71,6 +72,8 @@ for(genvar i = 0; i < PORTS; i++) begin
         sel[i] = gnt[i] | hold[i] ? 1'b1 : 1'b0;
     end
 end
+
+assign shift = |gnt;
 
 
 endmodule

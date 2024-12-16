@@ -5,11 +5,11 @@
 module allocator #(
     localparam integer PORTS = 4
 ) (
-    input   logic                                       clk,
-    input   logic       [$clog2(PORTS) - 1 : 0]         r_adr,
-    input   logic               [PORTS - 1 : 0][3 : 0]  in_ch_hdr_msn,
-    output  logic               [PORTS - 1 : 0]         sel,
-    output  logic                                       shift
+    input   logic                                           clk,
+    input   logic                [$clog2(PORTS) - 1 : 0]    r_adr,
+    input   logic [PORTS - 1 : 0]                [3 : 0]    in_ch_hdr_msn,
+    output  logic [PORTS - 1 : 0]                           sel,
+    output  logic                                           shift
 );
 
 // logic declarations
@@ -32,7 +32,7 @@ for(genvar i = 0; i < PORTS; i++) begin
     always_comb begin : decoder
         req[i] = '0;
         payload[i] = '0;
-        match[i] = (in_ch_hdr_msn[i][1:0] == r_adr);
+        match[i] = (in_ch_hdr_msn[i][1:0] == r_adr) ? 1'b1 : 1'b0;
 
         if(in_ch_hdr_msn[i][3:2] == HEADER_TYPE)
             req[i] = match[i];
@@ -55,7 +55,7 @@ end
 // holds output port for requesting input port for duration of packet
 for(genvar i = 0; i < PORTS; i++) begin
     always_comb begin : mux_select
-        hold[i] = last[i] | payload[i];
+        hold[i] = last[i] & payload[i];
     end
 end
 

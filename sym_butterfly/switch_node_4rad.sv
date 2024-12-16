@@ -9,7 +9,6 @@ module switch_node_4rad # (
     parameter integer CHANNEL_WIDTH = 18
 ) (
     input   logic                                               clk,
-    input   logic                      [$clog2(PORTS) - 1 : 0]  r_adr,
     input   logic       [PORTS - 1 : 0][CHANNEL_WIDTH - 1 : 0]  in_ch,
     output  logic       [PORTS - 1 : 0][CHANNEL_WIDTH - 1 : 0]  out_ch
 );
@@ -21,11 +20,14 @@ logic       [PORTS - 1 : 0][CHANNEL_WIDTH - 1 : 0]  in_ch_flops;
 logic       [PORTS - 1 : 0][CHANNEL_WIDTH - 1 : 0]  out_ch_flops;
 
 logic       [PORTS - 1 : 0]                [3 : 0]  in_ch_hdr_msn;
+logic       [PORTS - 1 : 0][$clog2(PORTS) - 1 : 0]  r_adr;
 logic       [PORTS - 1 : 0]        [PORTS - 1 : 0]  sel;
 logic       [PORTS - 1 : 0]                         shift;
 
 logic       [PORTS - 1 : 0][CHANNEL_WIDTH - 1 : 0]  mux_dout;
 logic       [PORTS - 1 : 0][CHANNEL_WIDTH - 1 : 0]  shift_dout;
+
+assign r_adr = {2'h3, 2'h2, 2'h1, 2'h0};
 
 // tap header most significant nibble (type and route)
 for(genvar i = 0; i < PORTS; i++) begin
@@ -35,11 +37,11 @@ end
 // allocator instantiation
 for(genvar i = 0; i < PORTS; i++) begin
     allocator u_allocator (
-        .clk            ( clk           ),
-        .r_adr          ( r_adr         ),                         
-        .in_ch_hdr_msn  ( in_ch_hdr_msn ),     
-        .sel            ( sel[i]        ),
-        .shift          ( shift[i]      )
+        .clk            ( clk               ),
+        .r_adr          ( r_adr[i]          ),                         
+        .in_ch_hdr_msn  ( in_ch_hdr_msn     ),     
+        .sel            ( sel[i]            ),
+        .shift          ( shift[i]          )
     );
 end
 

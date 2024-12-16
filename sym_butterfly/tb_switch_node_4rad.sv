@@ -4,7 +4,6 @@
 module tb_switch_node_4rad ();
 
 logic               clk;
-logic [1:0]         r_adr;
 logic [3:0][17:0]   in_ch;
 logic [3:0][17:0]   out_ch;
 
@@ -27,7 +26,6 @@ localparam WORD6 = 16'hF00D;
 
 switch_node_4rad DUT(
     .clk    ( clk       ),
-    .r_adr  ( r_adr     ),
     .in_ch  ( in_ch     ),
     .out_ch ( out_ch    )
 );
@@ -35,7 +33,6 @@ switch_node_4rad DUT(
 
 always #PERIOD/2 clk = ~clk;
 
-assign r_adr = '0;
 
 
 initial begin
@@ -65,7 +62,6 @@ endmodule
 module tb_switch_node_4rad ();
 
 logic               clk;
-logic [1:0]         r_adr;
 logic [3:0][17:0]   in_ch;
 logic [3:0][17:0]   out_ch;
 
@@ -88,15 +84,12 @@ localparam WORD6 = 16'hF00D;
 
 switch_node_4rad DUT(
     .clk    ( clk       ),
-    .r_adr  ( r_adr     ),
     .in_ch  ( in_ch     ),
     .out_ch ( out_ch    )
 );
 
 
 // always #PERIOD/2 clk = ~clk;
-
-assign r_adr = '0;
 
 
 initial begin

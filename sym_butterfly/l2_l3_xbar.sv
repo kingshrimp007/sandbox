@@ -12,6 +12,7 @@ module l2_l3_xbar # (
 //   s1.node2 -  1,  5,  9, 13
 //   s1.node3 -  2,  6, 10, 14
 //   s1.node4 -  3,  7, 11, 15
+//  ...
 
 // section 1-4 mapping
 always_comb begin
@@ -24,31 +25,5 @@ always_comb begin
     end
 end
 
-// // section 2 mapping
-// always_comb begin
-//     for(int i = 0; i < 4; i++) begin
-//         for(int j = 0; j < 4; j++) begin
-//             l3_in_ch[4*i + j + 16] = l2_out_ch[4*j + i + 16];
-//         end
-//     end
-// end
-
-// // section 3 mapping
-// always_comb begin
-//     for(int i = 0; i < 4; i++) begin
-//         for(int j = 0; j < 4; j++) begin
-//             l3_in_ch[4*i + j + 32] = l2_out_ch[4*j + i + 32];
-//         end
-//     end
-// end
-
-// // section 4 mapping
-// always_comb begin
-//     for(int i = 0; i < 4; i++) begin
-//         for(int j = 0; j < 4; j++) begin
-//             l3_in_ch[4*i + j + 48] = l2_out_ch[4*j + i + 48];
-//         end
-//     end
-// end
 
 endmodule

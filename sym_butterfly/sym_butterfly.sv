@@ -18,20 +18,12 @@ logic [PORTS - 1 : 0][CHANNEL_WIDTH - 1 : 0] l1_out_ch;
 logic [PORTS - 1 : 0][CHANNEL_WIDTH - 1 : 0] l2_in_ch;
 logic [PORTS - 1 : 0][CHANNEL_WIDTH - 1 : 0] l2_out_ch;
 logic [PORTS - 1 : 0][CHANNEL_WIDTH - 1 : 0] l3_in_ch;
-logic [NODES - 1 : 0]                [1 : 0] r_adr;
-
-
-assign r_adr = {2'h3, 2'h2, 2'h1, 2'h0,
-                2'h3, 2'h2, 2'h1, 2'h0,
-                2'h3, 2'h2, 2'h1, 2'h0,
-                2'h3, 2'h2, 2'h1, 2'h0};
 
 
 // layer 1
 for(genvar i = 0; i < NODES; i++) begin
     switch_node_4rad u_switch_node_4rad(
         .clk    ( clk           ),
-        .r_adr  ( r_adr[i]      ),
         .in_ch  ( in_ch[4*i + 3 : 4*i]      ),
         .out_ch ( l1_out_ch[4*i +3 : 4*i]   )
     );
@@ -48,7 +40,6 @@ l1_l2_xbar u_l1_l2_xbar (
 for(genvar i = 0; i < NODES; i++) begin
     switch_node_4rad u_switch_node_4rad(
         .clk    ( clk           ),
-        .r_adr  ( r_adr[i]      ),
         .in_ch  ( l2_in_ch[4*i + 3 : 4*i]   ),
         .out_ch ( l2_out_ch[4*i + 3 : 4*i]  )
     );
@@ -65,7 +56,6 @@ l2_l3_xbar u_l2_l3_xbar (
 for(genvar i = 0; i < NODES; i++) begin
     switch_node_4rad u_switch_node_4rad(
         .clk    ( clk           ),
-        .r_adr  ( r_adr[i]      ),
         .in_ch  ( l3_in_ch[4*i + 3 : 4*i]   ),
         .out_ch ( out_ch[4*i + 3 : 4*i]     )
     );

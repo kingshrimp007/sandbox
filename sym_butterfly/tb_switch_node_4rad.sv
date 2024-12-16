@@ -99,6 +99,8 @@ initial begin
   //$dumpvars(1, tb_switch_node_4rad.DUT.u_allocator);
     clk = 1'b1;
   	#5 clk = '0;
+    #5 clk = 1'b1;
+  	#5 clk = '0;
     in_ch = {{HEADER_O0}, NULL_PCKT, NULL_PCKT, NULL_PCKT};
 
     #5 clk = 1'b1;

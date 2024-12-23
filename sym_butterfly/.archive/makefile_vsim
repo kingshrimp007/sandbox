@@ -1,0 +1,68 @@
+TEST = tb_sym_butterfly
+# WAVE_FILE = wave_test.do
+
+RTLDIR = ./src
+TBDIR = ./tb
+WAVEDIR = ./waves
+TRANSCRIPT_FILE = transcript
+
+# GITBRANCH = feature
+
+VLOG_OPTS = -suppress +acc
+
+
+compile: rtl tb
+
+ 
+
+# compile all sources
+src = $(RTLDIR)/allocator.sv  \
+	$(RTLDIR)/switch_node_4rad.sv  \
+	$(RTLDIR)/l1_l2_xbar.sv  \
+	$(RTLDIR)/l2_l3_xbar.sv  \
+	$(RTLDIR)/sym_butterfly.sv  \
+	$(RTLDIR)/sym_butterfly_wrapper.sv
+
+
+rtl:
+	if [ ! -d work ]; then $(VLIB) work; fi
+	 ${VLOG} -lint -work ${VLOG_OPTS} ${src}
+	
+
+# compile verification environment
+tb:
+	if [ ! -d work ]; then $(VLIB) work; fi
+	# $(VLOG) $(VLOG_OPTS)    $(RTLDIR)/typedefs_pkg.sv
+	# $(VLOG) $(VLOG_OPTS)    $(RTLDIR)/harness.sv
+	if [ ! -e "${TEST}.sv" ]; then false; fi
+	${VLOG} $(VLOG_OPTS) ${TEST}.sv
+
+# run simulator in GUI mode 
+run:
+	# ${VSIM} -l $(TRANSCRIPT_FILE) test -do $(WAVEDIR)/$(WAVE_FILE) -do 'run -all'
+	${VSIM} -l $(TRANSCRIPT_FILE) test -do 'run -all'
+
+
+# runc: tb
+#     ${VSIM} -c -l $(TRANSCRIPT_FILE) -voptargs=+acc test -do $(WAVEDIR)/nogui.do
+	
+	
+# GIT commands
+
+# push:
+#         git push origin $(GITBRANCH)
+		
+# pull:
+#         git pull
+		
+# commit:
+#         git commit -a
+		
+# stat:
+#         git status
+	
+	
+clean:
+	rm -rf work 
+	rm -rf vsim.wlf 
+	rm -f $(TRANSCRIPT_FILE)

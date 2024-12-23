@@ -131,7 +131,7 @@ endtask
 
 
 initial begin
-    $dumpfile("tb_sym_butterfly_sim_out.vcd");
+    $dumpfile("tb_sym_butterfly_perf.vcd");
     $dumpvars(1);
     $dumpvars(1, tb_sym_butterfly_perf.DUT);
 

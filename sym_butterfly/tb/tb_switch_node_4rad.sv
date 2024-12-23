@@ -1,5 +1,5 @@
 `timescale 1ns/100ps
-`define PERIOD 10
+// `define H_PERIOD 5
 
 module tb_switch_node_4rad ();
 
@@ -31,11 +31,14 @@ switch_node_4rad DUT(
 );
 
 
-always #PERIOD/2 clk = ~clk;
+always #5 clk = ~clk;
 
 
 
 initial begin
+    $dumpfile("dump.vcd");
+    $dumpvars(1);
+    $dumpvars(1, tb_switch_node_4rad.DUT);
     clk = 1'b1;
     @(negedge clk);
     in_ch = {{HEADER_O0}, NULL_PCKT, NULL_PCKT, NULL_PCKT};
@@ -49,6 +52,8 @@ initial begin
     @(negedge clk);
 
     @(negedge clk);
+
+    $finish;
 
 end
 

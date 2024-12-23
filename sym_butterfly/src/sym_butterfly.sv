@@ -1,12 +1,13 @@
 // symmetrical butterfly switch using 3 layers of 16 4-radix switch nodes
 
-`define LAYERS 3
-`define RADIX 4
-`define NODES 16
+// `define LAYERS 3
+// `define RADIX 4
+// `define NODES 16
 
 module sym_butterfly # (
     parameter integer PORTS = 64,
-    parameter integer CHANNEL_WIDTH = 18
+    parameter integer CHANNEL_WIDTH = 18,
+    localparam integer NODES = 16
 ) (
     input   logic                                               clk,
     input   logic       [PORTS - 1 : 0][CHANNEL_WIDTH - 1 : 0]  in_ch,

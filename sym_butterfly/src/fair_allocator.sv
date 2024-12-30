@@ -1,3 +1,5 @@
+// to-do: modify design to include a ring counter which circulates
+//  highest precedence requester after each gnt
 // very simple fixed priority arbitration based allocator
 // corner case in which a single input port can constantly hold output port
 //  and lead to other channels being starved

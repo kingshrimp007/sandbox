@@ -1,7 +1,6 @@
 TEST = tb_sym_butterfly_perf
 # WAVE_FILE = wave_test.do
 
-# PREFIX = europractice questa 10.6c
 RTLDIR = ./src
 TBDIR = ./tb
 WAVEDIR = ./waves
@@ -28,7 +27,7 @@ rtl:
 # compile verification environment
 compile-all:
 	${VLATOR} ${VLATOR_OPTS} ${src} $(TBDIR)/$(TEST) --top $(TEST)
-	./obj_dir/V$(TEST)
+	./obj_dir/V$(TEST) > $(TEST).log
 
 # run simulator in GUI mode 
 run:

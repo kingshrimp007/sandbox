@@ -10,23 +10,30 @@
 // allow traffic to flush out with waiting period of 50 cycles
 // monitors traffic to see which packets dropped on output and resends
 
-class automatic randPckt;
+// randomization for output port assignment
+class automatic randAdr;
   // bit order is msb -> lsb
   //  must be streamed backwards to logic assignment
   //  for switch node address mapping
   rand logic [5:0] d_adr;
 endclass
 
+// randomization for input port assignment
 class automatic randSequence;
   rand int ch_idx[];
   
-  constraint idx_range {foreach (ch_idx[i]) {
+  constraint idx_range  {foreach (ch_idx[i]) {
                           ch_idx[i] > 0;
                           ch_idx[i] < 64;	}
-                       }
+                        }
+
+  constraint non_rep    {unique {ch_idx};}
 
   function new(input int array_size);
-	  ch_idx = new[array_size];
+    if(array_size < 64)
+  	  ch_idx = new[array_size];
+    else
+      ch_idx = new[64];
   endfunction
                         
 endclass
@@ -59,11 +66,11 @@ s_packet q_net_traffic [$][int];
 
 mailbox #(s_mbx_packets) resend_packets = new();
 
-int network_queue_size, queue_current_cycle_packet_vol;
-int tx_cnt, rx_cnt, dropped_cnt;
+shortint network_queue_size, queue_current_cycle_packet_vol;
+shortint tx_cnt, rx_cnt, dropped_cnt;
 real duty_cycle;
 
-randPckt random_packet = new;
+randAdr random_address = new;
 randSequence random_sequence;
 
 // ------------------------------------------------
@@ -78,8 +85,8 @@ endtask
 
 // send header wtih randomized destination address
 task automatic sendhdr(input int s_port, output logic [17:0] pckt);
-  random_packet.randomize();
-  pckt = {HDR_TYPE, {<<{random_packet.d_adr}}, 10'h0};
+  random_address.randomize();
+  pckt = {HDR_TYPE, random_address.d_adr, 10'h0};
   in_ch[s_port] = pckt;
 endtask
 
@@ -99,17 +106,17 @@ task tx_traffic(input real duty_cycle_in);
     for(int i = 0; i < 24; i++) begin
       // check mail
       resend_packets.try_get(resend_pckt_arr);
-      // randomize ch_idx sequence, extend sequence for resending packets as needed
+      // randomize ch_idx input port sequence, extend sequence for packets to be resent as needed
       random_sequence = new(64 * duty_cycle_in + resend_pckt_arr.packet_cnt);
       random_sequence.randomize();
-      $display("[%0t] Iteration %0d, payload vol: %0d, random sequence: ", $time, i, random_sequence.ch_idx.size(), random_sequence.ch_idx);
+      $display("[%0t] Tx Traffic Cycle %0d, tx payload vol: %0d, random sequence: ", $time, i, random_sequence.ch_idx.size(), random_sequence.ch_idx);
       foreach(random_sequence.ch_idx[j]) begin
         // resend packets first
         if(resend_pckt_arr.packet_cnt > 0) begin
           // top element resent then popped
           resendhdr(random_sequence.ch_idx[j], resend_pckt_arr.packets[resend_pckt_arr.packet_cnt - 1]);
           tx_s_pckt_arr[random_sequence.ch_idx[j]] = resend_pckt_arr.packets[resend_pckt_arr.packet_cnt - 1];
-            $display("[%0t] Iteration %0d, rand_seq idx %0d, Resent Packet => Payload {tx_s_pckt_arr[random_sequence.ch_idx[%0d]]}: 0x%0h, O_port {random_sequence.ch_idx[%0d]}: 0x%0h", $time, i, j, j, tx_s_pckt_arr[random_sequence.ch_idx[j]], j, random_sequence.ch_idx[j]);
+            $display("\tResent Packet %0d => Payload {tx_s_pckt_arr[%0d]}: 0x%0h, I_port {random_sequence.ch_idx[%0d]}: %0d, O_port {tx_s_pckt_arr[%0d].d_adr}: %0d", j, random_sequence.ch_idx[j], tx_s_pckt_arr[random_sequence.ch_idx[j]], j, random_sequence.ch_idx[j], random_sequence.ch_idx[j], tx_s_pckt_arr[random_sequence.ch_idx[j]].d_adr);
           resend_pckt_arr.packets[resend_pckt_arr.packet_cnt - 1] = 0;
           resend_pckt_arr.packet_cnt--;
           tx_cnt++;
@@ -119,7 +126,7 @@ task tx_traffic(input real duty_cycle_in);
           // sends a packet from input port at current index
           //  and adds element to local s_pckt_arr storage
           sendhdr(random_sequence.ch_idx[j], tx_s_pckt_arr[random_sequence.ch_idx[j]]);
-            $display("[%0t] Iteration %0d, rand_seq idx %0d, Sent Packet => Payload {tx_s_pckt_arr[random_sequence.ch_idx[%0d]]}: 0x%0h, O_port {random_sequence.ch_idx[%0d]}: 0x%0h", $time, i, j, j, tx_s_pckt_arr[random_sequence.ch_idx[j]], j, random_sequence.ch_idx[j]);
+            $display("\tSent Packet %0d => Payload {tx_s_pckt_arr[%0d]}: 0x%0h, I_port {random_sequence.ch_idx[%0d]}: %0d, O_port {tx_s_pckt_arr[%0d].d_adr}: %0d", j, random_sequence.ch_idx[j], tx_s_pckt_arr[random_sequence.ch_idx[j]], j, random_sequence.ch_idx[j], random_sequence.ch_idx[j], tx_s_pckt_arr[random_sequence.ch_idx[j]].d_adr);
           tx_cnt++;
         end
       end
@@ -128,6 +135,7 @@ task tx_traffic(input real duty_cycle_in);
       q_net_traffic.push_back(tx_s_pckt_arr);
       tick(1);
       // clear memories
+      tx_s_pckt_arr.delete();
       resend_pckt_arr = 0;
       random_sequence = null;
     end
@@ -141,49 +149,50 @@ task rx_traffic();
   // initialize packet arrays
   s_packet rx_s_pckt_arr[int];
   s_mbx_packets resend_pckt_arr;
+  int iteration;
   resend_pckt_arr = 0;
-  // wait until out_ch has valid data
-  // while(|out_ch == 0);
+  iteration = 0;
+  // timeout for zero-load latency
   tick(6);
   // update rx_cnt and stage packets to be resent
   while(q_net_traffic.size() > 0) begin
-    network_queue_size = q_net_traffic.size();
     rx_s_pckt_arr = q_net_traffic.pop_front();
+    network_queue_size = q_net_traffic.size();
     queue_current_cycle_packet_vol = rx_s_pckt_arr.size();
-    foreach(rx_s_pckt_arr[i])
-      if(rx_s_pckt_arr[i] == out_ch[o_adr(rx_s_pckt_arr[i].d_adr)])
+    $display("[%0t] Rx Traffic Cycle %0d, rx payload vol %0d", $time, iteration, rx_s_pckt_arr.size());
+    foreach(rx_s_pckt_arr[i]) begin
+      if(rx_s_pckt_arr[i] == out_ch[rx_s_pckt_arr[i].d_adr]) begin
         rx_cnt++;
+        $display("\tReceived Packet %0d\t=> I_port: %0d, O_port {rx_s_pckt_arr[%0d].d_adr)}: %0d, Expected Packet => Payload {rx_s_pckt_arr[%0d]}: 0x%0h, Received Packet => Payload {out_ch[%0d].d_adr} 0x%0h", rx_cnt, i, i, rx_s_pckt_arr[i].d_adr, i, rx_s_pckt_arr[i], rx_s_pckt_arr[i].d_adr, out_ch[rx_s_pckt_arr[i].d_adr]);
+      end
       else begin
         resend_pckt_arr.packets[resend_pckt_arr.packet_cnt] = rx_s_pckt_arr[i];
         resend_pckt_arr.packet_cnt++;
         dropped_cnt++;
+        $display("\tDROPPED Packet %0d\t=> I_port: %0d, O_port {rx_s_pckt_arr[%0d].d_adr)}: %0d, Expected Packet => Payload {rx_s_pckt_arr[%0d]}: 0x%0h, Received Packet => Payload {out_ch[%0d].d_adr} 0x%0h", dropped_cnt, i, i, rx_s_pckt_arr[i].d_adr, i, rx_s_pckt_arr[i], rx_s_pckt_arr[i].d_adr, out_ch[rx_s_pckt_arr[i].d_adr]);
       end
+    end
     // mailing packets to be resent!
     if(resend_pckt_arr.packet_cnt > 0)
       resend_packets.put(resend_pckt_arr);
 
+    iteration++;
     tick(1);
+    
+    // clear memories
+    rx_s_pckt_arr.delete();
+    resend_pckt_arr = 0;
   end
 
   // resend_packets = null;
 endtask
 
-// 
-task flush();
 // reset counters
+task flush();
   tx_cnt = 0;
   rx_cnt = 0;
-
-// clear tb_net_traffic memory
-
 endtask
 
-// convert input logic vector d_adr to integer 
-function int o_adr(input logic [5:0] d_adr);
-  int o_port;
-  o_port = {26'h0, {<<{d_adr}}};
-  return o_port;
-endfunction
 
 // ------------------------------------------------
 // DUT instantiation
@@ -226,6 +235,7 @@ initial begin
       rx_traffic();
     join
     tick(50);
+    flush();
 
     $finish;
 

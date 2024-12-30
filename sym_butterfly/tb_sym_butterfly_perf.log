@@ -1,0 +1,159 @@
+[35] Tx Traffic Cycle 0, tx payload vol: 2, random sequence: '{'h2d, 'h15} 
+	Sent Packet 0 => Payload {tx_s_pckt_arr[45]}: 0x3f800, I_port {random_sequence.ch_idx[0]}: 45, O_port {tx_s_pckt_arr[45].d_adr}: 62
+	Sent Packet 1 => Payload {tx_s_pckt_arr[21]}: 0x34800, I_port {random_sequence.ch_idx[1]}: 21, O_port {tx_s_pckt_arr[21].d_adr}: 18
+[45] Tx Traffic Cycle 1, tx payload vol: 2, random sequence: '{'h2b, 'h7} 
+	Sent Packet 0 => Payload {tx_s_pckt_arr[43]}: 0x32800, I_port {random_sequence.ch_idx[0]}: 43, O_port {tx_s_pckt_arr[43].d_adr}: 10
+	Sent Packet 1 => Payload {tx_s_pckt_arr[7]}: 0x34c00, I_port {random_sequence.ch_idx[1]}: 7, O_port {tx_s_pckt_arr[7].d_adr}: 19
+[55] Tx Traffic Cycle 2, tx payload vol: 2, random sequence: '{'h3b, 'h1b} 
+	Sent Packet 0 => Payload {tx_s_pckt_arr[59]}: 0x37000, I_port {random_sequence.ch_idx[0]}: 59, O_port {tx_s_pckt_arr[59].d_adr}: 28
+	Sent Packet 1 => Payload {tx_s_pckt_arr[27]}: 0x3f000, I_port {random_sequence.ch_idx[1]}: 27, O_port {tx_s_pckt_arr[27].d_adr}: 60
+[65] Tx Traffic Cycle 3, tx payload vol: 2, random sequence: '{'h3b, 'h7} 
+	Sent Packet 0 => Payload {tx_s_pckt_arr[59]}: 0x35800, I_port {random_sequence.ch_idx[0]}: 59, O_port {tx_s_pckt_arr[59].d_adr}: 22
+	Sent Packet 1 => Payload {tx_s_pckt_arr[7]}: 0x36000, I_port {random_sequence.ch_idx[1]}: 7, O_port {tx_s_pckt_arr[7].d_adr}: 24
+[75] Tx Traffic Cycle 4, tx payload vol: 2, random sequence: '{'h15, 'h3a} 
+	Sent Packet 0 => Payload {tx_s_pckt_arr[21]}: 0x3d800, I_port {random_sequence.ch_idx[0]}: 21, O_port {tx_s_pckt_arr[21].d_adr}: 54
+	Sent Packet 1 => Payload {tx_s_pckt_arr[58]}: 0x3f000, I_port {random_sequence.ch_idx[1]}: 58, O_port {tx_s_pckt_arr[58].d_adr}: 60
+[85] Tx Traffic Cycle 5, tx payload vol: 2, random sequence: '{'h2b, 'h3} 
+	Sent Packet 0 => Payload {tx_s_pckt_arr[43]}: 0x37800, I_port {random_sequence.ch_idx[0]}: 43, O_port {tx_s_pckt_arr[43].d_adr}: 30
+	Sent Packet 1 => Payload {tx_s_pckt_arr[3]}: 0x39400, I_port {random_sequence.ch_idx[1]}: 3, O_port {tx_s_pckt_arr[3].d_adr}: 37
+[95] Tx Traffic Cycle 6, tx payload vol: 2, random sequence: '{'h2f, 'h11} 
+	Sent Packet 0 => Payload {tx_s_pckt_arr[47]}: 0x35000, I_port {random_sequence.ch_idx[0]}: 47, O_port {tx_s_pckt_arr[47].d_adr}: 20
+	Sent Packet 1 => Payload {tx_s_pckt_arr[17]}: 0x32c00, I_port {random_sequence.ch_idx[1]}: 17, O_port {tx_s_pckt_arr[17].d_adr}: 11
+[95] Rx Traffic Cycle 0, rx payload vol 2
+	Received Packet 1	=> I_port: 21, O_port {rx_s_pckt_arr[21].d_adr)}: 18, Expected Packet => Payload {rx_s_pckt_arr[21]}: 0x34800, Received Packet => Payload {out_ch[18].d_adr} 0x34800
+	Received Packet 2	=> I_port: 45, O_port {rx_s_pckt_arr[45].d_adr)}: 62, Expected Packet => Payload {rx_s_pckt_arr[45]}: 0x3f800, Received Packet => Payload {out_ch[62].d_adr} 0x3f800
+[105] Tx Traffic Cycle 7, tx payload vol: 2, random sequence: '{'h13, 'h22} 
+	Sent Packet 0 => Payload {tx_s_pckt_arr[19]}: 0x36c00, I_port {random_sequence.ch_idx[0]}: 19, O_port {tx_s_pckt_arr[19].d_adr}: 27
+	Sent Packet 1 => Payload {tx_s_pckt_arr[34]}: 0x3a400, I_port {random_sequence.ch_idx[1]}: 34, O_port {tx_s_pckt_arr[34].d_adr}: 41
+[105] Rx Traffic Cycle 1, rx payload vol 2
+	Received Packet 3	=> I_port: 7, O_port {rx_s_pckt_arr[7].d_adr)}: 19, Expected Packet => Payload {rx_s_pckt_arr[7]}: 0x34c00, Received Packet => Payload {out_ch[19].d_adr} 0x34c00
+	Received Packet 4	=> I_port: 43, O_port {rx_s_pckt_arr[43].d_adr)}: 10, Expected Packet => Payload {rx_s_pckt_arr[43]}: 0x32800, Received Packet => Payload {out_ch[10].d_adr} 0x32800
+[115] Tx Traffic Cycle 8, tx payload vol: 2, random sequence: '{'h3b, 'h2b} 
+	Sent Packet 0 => Payload {tx_s_pckt_arr[59]}: 0x36000, I_port {random_sequence.ch_idx[0]}: 59, O_port {tx_s_pckt_arr[59].d_adr}: 24
+	Sent Packet 1 => Payload {tx_s_pckt_arr[43]}: 0x31800, I_port {random_sequence.ch_idx[1]}: 43, O_port {tx_s_pckt_arr[43].d_adr}: 6
+[115] Rx Traffic Cycle 2, rx payload vol 2
+	Received Packet 5	=> I_port: 27, O_port {rx_s_pckt_arr[27].d_adr)}: 60, Expected Packet => Payload {rx_s_pckt_arr[27]}: 0x3f000, Received Packet => Payload {out_ch[60].d_adr} 0x3f000
+	Received Packet 6	=> I_port: 59, O_port {rx_s_pckt_arr[59].d_adr)}: 28, Expected Packet => Payload {rx_s_pckt_arr[59]}: 0x37000, Received Packet => Payload {out_ch[28].d_adr} 0x37000
+[125] Tx Traffic Cycle 9, tx payload vol: 2, random sequence: '{'h21, 'hb} 
+	Sent Packet 0 => Payload {tx_s_pckt_arr[33]}: 0x34800, I_port {random_sequence.ch_idx[0]}: 33, O_port {tx_s_pckt_arr[33].d_adr}: 18
+	Sent Packet 1 => Payload {tx_s_pckt_arr[11]}: 0x36000, I_port {random_sequence.ch_idx[1]}: 11, O_port {tx_s_pckt_arr[11].d_adr}: 24
+[125] Rx Traffic Cycle 3, rx payload vol 2
+	Received Packet 7	=> I_port: 7, O_port {rx_s_pckt_arr[7].d_adr)}: 24, Expected Packet => Payload {rx_s_pckt_arr[7]}: 0x36000, Received Packet => Payload {out_ch[24].d_adr} 0x36000
+	Received Packet 8	=> I_port: 59, O_port {rx_s_pckt_arr[59].d_adr)}: 22, Expected Packet => Payload {rx_s_pckt_arr[59]}: 0x35800, Received Packet => Payload {out_ch[22].d_adr} 0x35800
+[135] Tx Traffic Cycle 10, tx payload vol: 2, random sequence: '{'h33, 'h3f} 
+	Sent Packet 0 => Payload {tx_s_pckt_arr[51]}: 0x37000, I_port {random_sequence.ch_idx[0]}: 51, O_port {tx_s_pckt_arr[51].d_adr}: 28
+	Sent Packet 1 => Payload {tx_s_pckt_arr[63]}: 0x3ac00, I_port {random_sequence.ch_idx[1]}: 63, O_port {tx_s_pckt_arr[63].d_adr}: 43
+[135] Rx Traffic Cycle 4, rx payload vol 2
+	Received Packet 9	=> I_port: 21, O_port {rx_s_pckt_arr[21].d_adr)}: 54, Expected Packet => Payload {rx_s_pckt_arr[21]}: 0x3d800, Received Packet => Payload {out_ch[54].d_adr} 0x3d800
+	DROPPED Packet 1	=> I_port: 58, O_port {rx_s_pckt_arr[58].d_adr)}: 60, Expected Packet => Payload {rx_s_pckt_arr[58]}: 0x3f000, Received Packet => Payload {out_ch[60].d_adr} 0x0
+[145] Tx Traffic Cycle 11, tx payload vol: 3, random sequence: '{'h13, 'h15, 'he} 
+	Resent Packet 0 => Payload {tx_s_pckt_arr[19]}: 0x3f000, I_port {random_sequence.ch_idx[0]}: 19, O_port {tx_s_pckt_arr[19].d_adr}: 60
+	Sent Packet 1 => Payload {tx_s_pckt_arr[21]}: 0x3d400, I_port {random_sequence.ch_idx[1]}: 21, O_port {tx_s_pckt_arr[21].d_adr}: 53
+	Sent Packet 2 => Payload {tx_s_pckt_arr[14]}: 0x32c00, I_port {random_sequence.ch_idx[2]}: 14, O_port {tx_s_pckt_arr[14].d_adr}: 11
+[145] Rx Traffic Cycle 5, rx payload vol 2
+	Received Packet 10	=> I_port: 3, O_port {rx_s_pckt_arr[3].d_adr)}: 37, Expected Packet => Payload {rx_s_pckt_arr[3]}: 0x39400, Received Packet => Payload {out_ch[37].d_adr} 0x39400
+	Received Packet 11	=> I_port: 43, O_port {rx_s_pckt_arr[43].d_adr)}: 30, Expected Packet => Payload {rx_s_pckt_arr[43]}: 0x37800, Received Packet => Payload {out_ch[30].d_adr} 0x37800
+[155] Tx Traffic Cycle 12, tx payload vol: 2, random sequence: '{'h2d, 'h3f} 
+	Sent Packet 0 => Payload {tx_s_pckt_arr[45]}: 0x32800, I_port {random_sequence.ch_idx[0]}: 45, O_port {tx_s_pckt_arr[45].d_adr}: 10
+	Sent Packet 1 => Payload {tx_s_pckt_arr[63]}: 0x3e000, I_port {random_sequence.ch_idx[1]}: 63, O_port {tx_s_pckt_arr[63].d_adr}: 56
+[155] Rx Traffic Cycle 6, rx payload vol 2
+	Received Packet 12	=> I_port: 17, O_port {rx_s_pckt_arr[17].d_adr)}: 11, Expected Packet => Payload {rx_s_pckt_arr[17]}: 0x32c00, Received Packet => Payload {out_ch[11].d_adr} 0x32c00
+	Received Packet 13	=> I_port: 47, O_port {rx_s_pckt_arr[47].d_adr)}: 20, Expected Packet => Payload {rx_s_pckt_arr[47]}: 0x35000, Received Packet => Payload {out_ch[20].d_adr} 0x35000
+[165] Tx Traffic Cycle 13, tx payload vol: 2, random sequence: '{'h4, 'h13} 
+	Sent Packet 0 => Payload {tx_s_pckt_arr[4]}: 0x35400, I_port {random_sequence.ch_idx[0]}: 4, O_port {tx_s_pckt_arr[4].d_adr}: 21
+	Sent Packet 1 => Payload {tx_s_pckt_arr[19]}: 0x3dc00, I_port {random_sequence.ch_idx[1]}: 19, O_port {tx_s_pckt_arr[19].d_adr}: 55
+[165] Rx Traffic Cycle 7, rx payload vol 2
+	Received Packet 14	=> I_port: 19, O_port {rx_s_pckt_arr[19].d_adr)}: 27, Expected Packet => Payload {rx_s_pckt_arr[19]}: 0x36c00, Received Packet => Payload {out_ch[27].d_adr} 0x36c00
+	Received Packet 15	=> I_port: 34, O_port {rx_s_pckt_arr[34].d_adr)}: 41, Expected Packet => Payload {rx_s_pckt_arr[34]}: 0x3a400, Received Packet => Payload {out_ch[41].d_adr} 0x3a400
+[175] Tx Traffic Cycle 14, tx payload vol: 2, random sequence: '{'h1f, 'h7} 
+	Sent Packet 0 => Payload {tx_s_pckt_arr[31]}: 0x38400, I_port {random_sequence.ch_idx[0]}: 31, O_port {tx_s_pckt_arr[31].d_adr}: 33
+	Sent Packet 1 => Payload {tx_s_pckt_arr[7]}: 0x3e800, I_port {random_sequence.ch_idx[1]}: 7, O_port {tx_s_pckt_arr[7].d_adr}: 58
+[175] Rx Traffic Cycle 8, rx payload vol 2
+	Received Packet 16	=> I_port: 43, O_port {rx_s_pckt_arr[43].d_adr)}: 6, Expected Packet => Payload {rx_s_pckt_arr[43]}: 0x31800, Received Packet => Payload {out_ch[6].d_adr} 0x31800
+	Received Packet 17	=> I_port: 59, O_port {rx_s_pckt_arr[59].d_adr)}: 24, Expected Packet => Payload {rx_s_pckt_arr[59]}: 0x36000, Received Packet => Payload {out_ch[24].d_adr} 0x36000
+[185] Tx Traffic Cycle 15, tx payload vol: 2, random sequence: '{'h15, 'h26} 
+	Sent Packet 0 => Payload {tx_s_pckt_arr[21]}: 0x34000, I_port {random_sequence.ch_idx[0]}: 21, O_port {tx_s_pckt_arr[21].d_adr}: 16
+	Sent Packet 1 => Payload {tx_s_pckt_arr[38]}: 0x31800, I_port {random_sequence.ch_idx[1]}: 38, O_port {tx_s_pckt_arr[38].d_adr}: 6
+[185] Rx Traffic Cycle 9, rx payload vol 2
+	Received Packet 18	=> I_port: 11, O_port {rx_s_pckt_arr[11].d_adr)}: 24, Expected Packet => Payload {rx_s_pckt_arr[11]}: 0x36000, Received Packet => Payload {out_ch[24].d_adr} 0x36000
+	Received Packet 19	=> I_port: 33, O_port {rx_s_pckt_arr[33].d_adr)}: 18, Expected Packet => Payload {rx_s_pckt_arr[33]}: 0x34800, Received Packet => Payload {out_ch[18].d_adr} 0x34800
+[195] Tx Traffic Cycle 16, tx payload vol: 2, random sequence: '{'h31, 'hb} 
+	Sent Packet 0 => Payload {tx_s_pckt_arr[49]}: 0x39400, I_port {random_sequence.ch_idx[0]}: 49, O_port {tx_s_pckt_arr[49].d_adr}: 37
+	Sent Packet 1 => Payload {tx_s_pckt_arr[11]}: 0x32c00, I_port {random_sequence.ch_idx[1]}: 11, O_port {tx_s_pckt_arr[11].d_adr}: 11
+[195] Rx Traffic Cycle 10, rx payload vol 2
+	Received Packet 20	=> I_port: 51, O_port {rx_s_pckt_arr[51].d_adr)}: 28, Expected Packet => Payload {rx_s_pckt_arr[51]}: 0x37000, Received Packet => Payload {out_ch[28].d_adr} 0x37000
+	Received Packet 21	=> I_port: 63, O_port {rx_s_pckt_arr[63].d_adr)}: 43, Expected Packet => Payload {rx_s_pckt_arr[63]}: 0x3ac00, Received Packet => Payload {out_ch[43].d_adr} 0x3ac00
+[205] Tx Traffic Cycle 17, tx payload vol: 2, random sequence: '{'h37, 'h16} 
+	Sent Packet 0 => Payload {tx_s_pckt_arr[55]}: 0x3f400, I_port {random_sequence.ch_idx[0]}: 55, O_port {tx_s_pckt_arr[55].d_adr}: 61
+	Sent Packet 1 => Payload {tx_s_pckt_arr[22]}: 0x35000, I_port {random_sequence.ch_idx[1]}: 22, O_port {tx_s_pckt_arr[22].d_adr}: 20
+[205] Rx Traffic Cycle 11, rx payload vol 3
+	DROPPED Packet 2	=> I_port: 14, O_port {rx_s_pckt_arr[14].d_adr)}: 11, Expected Packet => Payload {rx_s_pckt_arr[14]}: 0x32c00, Received Packet => Payload {out_ch[11].d_adr} 0x0
+	Received Packet 22	=> I_port: 19, O_port {rx_s_pckt_arr[19].d_adr)}: 60, Expected Packet => Payload {rx_s_pckt_arr[19]}: 0x3f000, Received Packet => Payload {out_ch[60].d_adr} 0x3f000
+	Received Packet 23	=> I_port: 21, O_port {rx_s_pckt_arr[21].d_adr)}: 53, Expected Packet => Payload {rx_s_pckt_arr[21]}: 0x3d400, Received Packet => Payload {out_ch[53].d_adr} 0x3d400
+[215] Tx Traffic Cycle 18, tx payload vol: 3, random sequence: '{'h3f, 'h1b, 'h3f} 
+	Resent Packet 0 => Payload {tx_s_pckt_arr[63]}: 0x32c00, I_port {random_sequence.ch_idx[0]}: 63, O_port {tx_s_pckt_arr[63].d_adr}: 11
+	Sent Packet 1 => Payload {tx_s_pckt_arr[27]}: 0x33400, I_port {random_sequence.ch_idx[1]}: 27, O_port {tx_s_pckt_arr[27].d_adr}: 13
+	Sent Packet 2 => Payload {tx_s_pckt_arr[63]}: 0x3e400, I_port {random_sequence.ch_idx[2]}: 63, O_port {tx_s_pckt_arr[63].d_adr}: 57
+[215] Rx Traffic Cycle 12, rx payload vol 2
+	DROPPED Packet 3	=> I_port: 45, O_port {rx_s_pckt_arr[45].d_adr)}: 10, Expected Packet => Payload {rx_s_pckt_arr[45]}: 0x32800, Received Packet => Payload {out_ch[10].d_adr} 0x0
+	Received Packet 24	=> I_port: 63, O_port {rx_s_pckt_arr[63].d_adr)}: 56, Expected Packet => Payload {rx_s_pckt_arr[63]}: 0x3e000, Received Packet => Payload {out_ch[56].d_adr} 0x3e000
+[225] Tx Traffic Cycle 19, tx payload vol: 3, random sequence: '{'h1d, 'h1f, 'h3d} 
+	Resent Packet 0 => Payload {tx_s_pckt_arr[29]}: 0x32800, I_port {random_sequence.ch_idx[0]}: 29, O_port {tx_s_pckt_arr[29].d_adr}: 10
+	Sent Packet 1 => Payload {tx_s_pckt_arr[31]}: 0x3dc00, I_port {random_sequence.ch_idx[1]}: 31, O_port {tx_s_pckt_arr[31].d_adr}: 55
+	Sent Packet 2 => Payload {tx_s_pckt_arr[61]}: 0x37800, I_port {random_sequence.ch_idx[2]}: 61, O_port {tx_s_pckt_arr[61].d_adr}: 30
+[225] Rx Traffic Cycle 13, rx payload vol 2
+	DROPPED Packet 4	=> I_port: 4, O_port {rx_s_pckt_arr[4].d_adr)}: 21, Expected Packet => Payload {rx_s_pckt_arr[4]}: 0x35400, Received Packet => Payload {out_ch[21].d_adr} 0x0
+	Received Packet 25	=> I_port: 19, O_port {rx_s_pckt_arr[19].d_adr)}: 55, Expected Packet => Payload {rx_s_pckt_arr[19]}: 0x3dc00, Received Packet => Payload {out_ch[55].d_adr} 0x3dc00
+[235] Tx Traffic Cycle 20, tx payload vol: 3, random sequence: '{'h3d, 'h1b, 'h1f} 
+	Resent Packet 0 => Payload {tx_s_pckt_arr[61]}: 0x35400, I_port {random_sequence.ch_idx[0]}: 61, O_port {tx_s_pckt_arr[61].d_adr}: 21
+	Sent Packet 1 => Payload {tx_s_pckt_arr[27]}: 0x3b400, I_port {random_sequence.ch_idx[1]}: 27, O_port {tx_s_pckt_arr[27].d_adr}: 45
+	Sent Packet 2 => Payload {tx_s_pckt_arr[31]}: 0x3b800, I_port {random_sequence.ch_idx[2]}: 31, O_port {tx_s_pckt_arr[31].d_adr}: 46
+[235] Rx Traffic Cycle 14, rx payload vol 2
+	Received Packet 26	=> I_port: 7, O_port {rx_s_pckt_arr[7].d_adr)}: 58, Expected Packet => Payload {rx_s_pckt_arr[7]}: 0x3e800, Received Packet => Payload {out_ch[58].d_adr} 0x3e800
+	Received Packet 27	=> I_port: 31, O_port {rx_s_pckt_arr[31].d_adr)}: 33, Expected Packet => Payload {rx_s_pckt_arr[31]}: 0x38400, Received Packet => Payload {out_ch[33].d_adr} 0x38400
+[245] Tx Traffic Cycle 21, tx payload vol: 2, random sequence: '{'h3, 'he} 
+	Sent Packet 0 => Payload {tx_s_pckt_arr[3]}: 0x3a400, I_port {random_sequence.ch_idx[0]}: 3, O_port {tx_s_pckt_arr[3].d_adr}: 41
+	Sent Packet 1 => Payload {tx_s_pckt_arr[14]}: 0x39000, I_port {random_sequence.ch_idx[1]}: 14, O_port {tx_s_pckt_arr[14].d_adr}: 36
+[245] Rx Traffic Cycle 15, rx payload vol 2
+	Received Packet 28	=> I_port: 21, O_port {rx_s_pckt_arr[21].d_adr)}: 16, Expected Packet => Payload {rx_s_pckt_arr[21]}: 0x34000, Received Packet => Payload {out_ch[16].d_adr} 0x34000
+	Received Packet 29	=> I_port: 38, O_port {rx_s_pckt_arr[38].d_adr)}: 6, Expected Packet => Payload {rx_s_pckt_arr[38]}: 0x31800, Received Packet => Payload {out_ch[6].d_adr} 0x31800
+[255] Tx Traffic Cycle 22, tx payload vol: 2, random sequence: '{'h15, 'h31} 
+	Sent Packet 0 => Payload {tx_s_pckt_arr[21]}: 0x36c00, I_port {random_sequence.ch_idx[0]}: 21, O_port {tx_s_pckt_arr[21].d_adr}: 27
+	Sent Packet 1 => Payload {tx_s_pckt_arr[49]}: 0x34800, I_port {random_sequence.ch_idx[1]}: 49, O_port {tx_s_pckt_arr[49].d_adr}: 18
+[255] Rx Traffic Cycle 16, rx payload vol 2
+	DROPPED Packet 5	=> I_port: 11, O_port {rx_s_pckt_arr[11].d_adr)}: 11, Expected Packet => Payload {rx_s_pckt_arr[11]}: 0x32c00, Received Packet => Payload {out_ch[11].d_adr} 0x0
+	DROPPED Packet 6	=> I_port: 49, O_port {rx_s_pckt_arr[49].d_adr)}: 37, Expected Packet => Payload {rx_s_pckt_arr[49]}: 0x39400, Received Packet => Payload {out_ch[37].d_adr} 0x0
+[265] Tx Traffic Cycle 23, tx payload vol: 4, random sequence: '{'h1b, 'h3f, 'h3e, 'hf} 
+	Resent Packet 0 => Payload {tx_s_pckt_arr[27]}: 0x39400, I_port {random_sequence.ch_idx[0]}: 27, O_port {tx_s_pckt_arr[27].d_adr}: 37
+	Resent Packet 1 => Payload {tx_s_pckt_arr[63]}: 0x32c00, I_port {random_sequence.ch_idx[1]}: 63, O_port {tx_s_pckt_arr[63].d_adr}: 11
+	Sent Packet 2 => Payload {tx_s_pckt_arr[62]}: 0x3ec00, I_port {random_sequence.ch_idx[2]}: 62, O_port {tx_s_pckt_arr[62].d_adr}: 59
+	Sent Packet 3 => Payload {tx_s_pckt_arr[15]}: 0x38000, I_port {random_sequence.ch_idx[3]}: 15, O_port {tx_s_pckt_arr[15].d_adr}: 32
+[265] Rx Traffic Cycle 17, rx payload vol 2
+	Received Packet 30	=> I_port: 22, O_port {rx_s_pckt_arr[22].d_adr)}: 20, Expected Packet => Payload {rx_s_pckt_arr[22]}: 0x35000, Received Packet => Payload {out_ch[20].d_adr} 0x35000
+	Received Packet 31	=> I_port: 55, O_port {rx_s_pckt_arr[55].d_adr)}: 61, Expected Packet => Payload {rx_s_pckt_arr[55]}: 0x3f400, Received Packet => Payload {out_ch[61].d_adr} 0x3f400
+[275] Rx Traffic Cycle 18, rx payload vol 2
+	Received Packet 32	=> I_port: 27, O_port {rx_s_pckt_arr[27].d_adr)}: 13, Expected Packet => Payload {rx_s_pckt_arr[27]}: 0x33400, Received Packet => Payload {out_ch[13].d_adr} 0x33400
+	Received Packet 33	=> I_port: 63, O_port {rx_s_pckt_arr[63].d_adr)}: 57, Expected Packet => Payload {rx_s_pckt_arr[63]}: 0x3e400, Received Packet => Payload {out_ch[57].d_adr} 0x3e400
+[285] Rx Traffic Cycle 19, rx payload vol 3
+	DROPPED Packet 7	=> I_port: 29, O_port {rx_s_pckt_arr[29].d_adr)}: 10, Expected Packet => Payload {rx_s_pckt_arr[29]}: 0x32800, Received Packet => Payload {out_ch[10].d_adr} 0x0
+	DROPPED Packet 8	=> I_port: 31, O_port {rx_s_pckt_arr[31].d_adr)}: 55, Expected Packet => Payload {rx_s_pckt_arr[31]}: 0x3dc00, Received Packet => Payload {out_ch[55].d_adr} 0x0
+	Received Packet 34	=> I_port: 61, O_port {rx_s_pckt_arr[61].d_adr)}: 30, Expected Packet => Payload {rx_s_pckt_arr[61]}: 0x37800, Received Packet => Payload {out_ch[30].d_adr} 0x37800
+[295] Rx Traffic Cycle 20, rx payload vol 3
+	Received Packet 35	=> I_port: 27, O_port {rx_s_pckt_arr[27].d_adr)}: 45, Expected Packet => Payload {rx_s_pckt_arr[27]}: 0x3b400, Received Packet => Payload {out_ch[45].d_adr} 0x3b400
+	Received Packet 36	=> I_port: 31, O_port {rx_s_pckt_arr[31].d_adr)}: 46, Expected Packet => Payload {rx_s_pckt_arr[31]}: 0x3b800, Received Packet => Payload {out_ch[46].d_adr} 0x3b800
+	Received Packet 37	=> I_port: 61, O_port {rx_s_pckt_arr[61].d_adr)}: 21, Expected Packet => Payload {rx_s_pckt_arr[61]}: 0x35400, Received Packet => Payload {out_ch[21].d_adr} 0x35400
+[305] Rx Traffic Cycle 21, rx payload vol 2
+	DROPPED Packet 9	=> I_port: 3, O_port {rx_s_pckt_arr[3].d_adr)}: 41, Expected Packet => Payload {rx_s_pckt_arr[3]}: 0x3a400, Received Packet => Payload {out_ch[41].d_adr} 0x0
+	Received Packet 38	=> I_port: 14, O_port {rx_s_pckt_arr[14].d_adr)}: 36, Expected Packet => Payload {rx_s_pckt_arr[14]}: 0x39000, Received Packet => Payload {out_ch[36].d_adr} 0x39000
+[315] Rx Traffic Cycle 22, rx payload vol 2
+	Received Packet 39	=> I_port: 21, O_port {rx_s_pckt_arr[21].d_adr)}: 27, Expected Packet => Payload {rx_s_pckt_arr[21]}: 0x36c00, Received Packet => Payload {out_ch[27].d_adr} 0x36c00
+	Received Packet 40	=> I_port: 49, O_port {rx_s_pckt_arr[49].d_adr)}: 18, Expected Packet => Payload {rx_s_pckt_arr[49]}: 0x34800, Received Packet => Payload {out_ch[18].d_adr} 0x34800
+[325] Rx Traffic Cycle 23, rx payload vol 4
+	DROPPED Packet 10	=> I_port: 15, O_port {rx_s_pckt_arr[15].d_adr)}: 32, Expected Packet => Payload {rx_s_pckt_arr[15]}: 0x38000, Received Packet => Payload {out_ch[32].d_adr} 0x0
+	Received Packet 41	=> I_port: 27, O_port {rx_s_pckt_arr[27].d_adr)}: 37, Expected Packet => Payload {rx_s_pckt_arr[27]}: 0x39400, Received Packet => Payload {out_ch[37].d_adr} 0x39400
+	Received Packet 42	=> I_port: 62, O_port {rx_s_pckt_arr[62].d_adr)}: 59, Expected Packet => Payload {rx_s_pckt_arr[62]}: 0x3ec00, Received Packet => Payload {out_ch[59].d_adr} 0x3ec00
+	DROPPED Packet 11	=> I_port: 63, O_port {rx_s_pckt_arr[63].d_adr)}: 11, Expected Packet => Payload {rx_s_pckt_arr[63]}: 0x32c00, Received Packet => Payload {out_ch[11].d_adr} 0x0
+- tb/tb_sym_butterfly_perf.sv:240: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.030 2024-10-27
+- Verilator: $finish at 840ps; walltime 0.239 s; speed 27.622 ns/s
+- Verilator: cpu 0.030 s on 1 threads; alloced 0 MB

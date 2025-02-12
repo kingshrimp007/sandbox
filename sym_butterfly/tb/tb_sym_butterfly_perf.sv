@@ -18,7 +18,7 @@ class automatic randAdr;
   rand logic [5:0] d_adr;
 endclass
 
-// randomization for input port assignment
+// uniform sequencing for input port assignment
 class automatic uniformSequence;
   int ch_idx[];
 
@@ -96,19 +96,19 @@ task automatic resendhdr(input int s_port, input logic [17:0] pckt);
 endtask
 
 // send traffic at requested duty cycle with randomized I/O
-task tx_traffic(input real duty_cycle_in);
+task tx_traffic();
   // inititalize local s_pckt_arr associative array
   s_packet tx_s_pckt_arr[int];
   s_mbx_packets resend_pckt_arr;
   resend_pckt_arr = 0;
-  $display("[%0t] Starting new tx traffic cycle, duty cycle: %0f", $time, duty_cycle_in);
+  $display("[%0t] Starting new tx traffic cycle, duty cycle: %0f", $time, duty_cycle);
 
-    // saturate network for 24 cycles
-    for(int i = 0; i < 24; i++) begin
+    // saturate network for 50 cycles
+    for(int i = 0; i < 47; i++) begin
       // check mail
       resend_packets.try_get(resend_pckt_arr);
       // create ch_idx input port sequence, extend sequence for packets to be resent as needed
-      uniform_sequence = new(64 * duty_cycle_in + resend_pckt_arr.packet_cnt);
+      uniform_sequence = new(64 * duty_cycle + resend_pckt_arr.packet_cnt);
       $display("[%0t] Tx Traffic Cycle %0d, tx payload vol: %0d, uniform sequence: ", $time, i, uniform_sequence.ch_idx.size(), uniform_sequence.ch_idx);
       foreach(uniform_sequence.ch_idx[j]) begin
         // resend packets first
@@ -152,7 +152,8 @@ task rx_traffic();
   resend_pckt_arr = 0;
   iteration = 0;
   // timeout for zero-load latency
-  tick(6);
+  while(|out_ch == 0)
+    tick(1);
   // update rx_cnt and stage packets to be resent
   while(q_net_traffic.size() > 0) begin
     rx_s_pckt_arr = q_net_traffic.pop_front();
@@ -186,6 +187,7 @@ endtask
 
 // reset counters
 task flush();
+  $display("[%0t] End of run with duty cycle %0f: tx_cnt %0d, rx_cnt %0d, dropped_cnt %0d", $time, duty_cycle, tx_cnt, rx_cnt, dropped_cnt);
   tx_cnt = 0;
   rx_cnt = 0;
   dropped_cnt = 0;
@@ -230,43 +232,51 @@ initial begin
 
     duty_cycle = 0.03125;
     fork
-      tx_traffic(duty_cycle);
+      tx_traffic();
       rx_traffic();
     join
     tick(50);
     flush();
 
-    duty_cycle = 0.0625;
-    fork
-      tx_traffic(duty_cycle);
-      rx_traffic();
-    join
-    tick(50);
-    flush();
+    // duty_cycle = 0.0625;
+    // fork
+    //   tx_traffic();
+    //   rx_traffic();
+    // join
+    // tick(50);
+    // flush();
 
-    duty_cycle = 0.125;
-    fork
-      tx_traffic(duty_cycle);
-      rx_traffic();
-    join
-    tick(50);
-    flush();
+    // duty_cycle = 0.125;
+    // fork
+    //   tx_traffic();
+    //   rx_traffic();
+    // join
+    // tick(50);
+    // flush();
 
-    duty_cycle = 0.25;
-    fork
-      tx_traffic(duty_cycle);
-      rx_traffic();
-    join
-    tick(50);
-    flush();
+    // duty_cycle = 0.25;
+    // fork
+    //   tx_traffic();
+    //   rx_traffic();
+    // join
+    // tick(50);
+    // flush();
 
-    duty_cycle = 0.5;
-    fork
-      tx_traffic(duty_cycle);
-      rx_traffic();
-    join
-    tick(50);
-    flush();
+    // duty_cycle = 0.5;
+    // fork
+    //   tx_traffic();
+    //   rx_traffic();
+    // join
+    // tick(50);
+    // flush();
+
+    // duty_cycle = 0.5625;
+    // fork
+    //   tx_traffic();
+    //   rx_traffic();
+    // join
+    // tick(50);
+    // flush();
 
     $finish;
 

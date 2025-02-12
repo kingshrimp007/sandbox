@@ -4,7 +4,7 @@
 // corner case in which a single input port can constantly hold output port
 //  and lead to other channels being starved
 
-module allocator #(
+module fair_allocator #(
     localparam integer PORTS = 4
 ) (
     input   logic                                           clk,

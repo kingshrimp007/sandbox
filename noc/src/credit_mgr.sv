@@ -3,7 +3,10 @@ module credit_mgr # (
     parameter CHANNELS = 12,
     localparam NUM_REQ = PORTS * CHANNELS
 ) (
-
+    input logic                         clk,
+    input logic                         rst,
+    output logic    [NUM_REQ - 1: 0]    ovid_avail,
+    
 );
 
 

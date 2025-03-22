@@ -1,5 +1,4 @@
-// TODO credit forwarding
-module vc_inbufs # (
+module tl_ifc_inbufs # (
     parameter D_WIDTH = 32,
     parameter VID_BITS = 6,
     parameter TYPE_BITS = 2,
@@ -7,23 +6,26 @@ module vc_inbufs # (
     parameter DEST_BITS = 4,
     localparam HDR_NULL_BITS = D_WIDTH - VID_BITS - TYPE_BITS - CREDIT_BITS - DEST_BITS
 ) (
-    input logic                         clk,
-    input logic                         rst,
-    input logic     [VID_BITS - 1: 0]   vid,
-    input logic      [D_WIDTH - 1: 0]   vc_inbuf_din,
+    input  logic                        clk,
+    input  logic                        rst,
+    input  logic    [VID_BITS - 1: 0]   vid,
+    input  logic     [D_WIDTH - 1: 0]   vc_inbuf_din,
     output logic     [D_WIDTH - 1: 0]   vc_inbuf_dout,
     
     output logic                        rc_req,
-    input logic                         rc_gnt,
+    input  logic                        rc_gnt,
     output logic                        vc_req,
-    input logic                         vc_gnt,
+    input  logic                        vc_gnt,
     output logic                        sa_req,
-    input logic                         sa_gnt,
+    input  logic                        sa_gnt,
+
+    input  logic                        b_wr_en,
+    output logic                        b_full,
 
     output logic              [ 2: 0]   g_state,
-    input logic    [DEST_BITS - 1: 0]   g_route_i,
+    input  logic   [DEST_BITS - 1: 0]   g_route_i,
     output logic   [DEST_BITS - 1: 0]   g_route_o,
-    input logic     [VID_BITS - 1: 0]   g_ovid_i,
+    input  logic    [VID_BITS - 1: 0]   g_ovid_i,
     output logic    [VID_BITS - 1: 0]   g_ovid_o,
     output logic [CREDIT_BITS - 1: 0]   g_credits
 );
@@ -62,7 +64,8 @@ assign sa_req = ~empty & g_state[2];
 
 assign g_credits = count;
 
-assign wr_en = vc_inbuf_din[D_WIDTH - 1: D_WIDTH - VID_BITS] == vid;
+assign b_full = full;
+
 assign rd_en = sa_gnt;
 
 always_ff @ (posedge clk) begin
